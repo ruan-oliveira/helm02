@@ -16,6 +16,16 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -45,6 +55,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  targetPort: 80
 
 ingress:
   enabled: false
