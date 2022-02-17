@@ -1,0 +1,85 @@
+{{- if .Values.webScenario.enabled -}}
+### pod para criar web scenario
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "app-example-web-monitoring.fullname" . }}-create-web-monitoring"
+  labels:
+    {{- include "app-example-web-monitoring.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  containers:
+    - name: zabbix-create-web-monitoring
+      image: inutano/wget
+      args:
+        - /bin/sh
+        - -c
+        - |- 
+          wget https://raw.githubusercontent.com/JackExperts/scripts/main/zabbix/webScenario.sh;
+          chmod +x webScenario.sh;
+          ./webScenario.sh;
+      env:
+      - name: "ZABBIX_URL"
+        value: "{{ .Values.webScenario.zabbixUrl }}"
+      - name: "ZABBIX_USER"
+        value: "{{ .Values.webScenario.zabbixUser }}"
+      - name: "ZABBIX_PASSWORD"
+        value: "{{ .Values.webScenario.zabbixPassword }}"
+      - name: "WEB_NAME"
+        value: "{{ include "app-example-web-monitoring.fullname" . }}"
+      - name: "WEB_CODE"
+        value: "{{ .Values.webScenario.code }}"
+      - name: "WEB_HOST_ID"
+        value: "{{ .Values.webScenario.hostId }}"
+      - name: "WEB_URL"
+        value: "{{ .Values.webScenario.monitoringUrl }}"
+      - name: "WEB_ACTION"
+        value: "webscenario_create"
+  restartPolicy: Never
+
+### pod para apagar web scenario
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "app-example-web-monitoring.fullname" . }}-delete-web-monitoring"
+  labels:
+    {{- include "app-example-web-monitoring.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-delete
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  containers:
+    - name: zabbix-delete-web-monitoring
+      image: inutano/wget
+      args: 
+        - /bin/sh
+        - -c
+        - |- 
+          wget https://raw.githubusercontent.com/JackExperts/scripts/main/zabbix/webScenario.sh;
+          chmod +x webScenario.sh;
+          ./webScenario.sh
+      env:
+      - name: "ZABBIX_URL"
+        value: "{{ .Values.webScenario.zabbixUrl }}"
+      - name: "ZABBIX_USER"
+        value: "{{ .Values.webScenario.zabbixUser }}"
+      - name: "ZABBIX_PASSWORD"
+        value: "{{ .Values.webScenario.zabbixPassword }}"
+      - name: "WEB_NAME"
+        value: "{{ include "app-example-web-monitoring.fullname" . }}"
+      - name: "WEB_CODE"
+        value: "{{ .Values.webScenario.code }}"
+      - name: "WEB_HOST_ID"
+        value: "{{ .Values.webScenario.hostId }}"
+      - name: "WEB_URL"
+        value: "{{ .Values.webScenario.monitoringUrl }}"
+      - name: "WEB_ACTION"
+        value: "webscenario_delete"
+  restartPolicy: Never
+
+{{- end -}}

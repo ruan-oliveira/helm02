@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "app-example-web-monitoring.fullname" . }}
+  labels:
+    {{- include "app-example-web-monitoring.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "app-example-web-monitoring.selectorLabels" . | nindent 4 }}
