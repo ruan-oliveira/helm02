@@ -65,6 +65,12 @@ questions:
     type: string
     required: true
     label: Path
+  - variable: ingress.hosts[0].paths[0].pathType
+    default: "ImplementationSpecific"
+    description: "Path type to your Nginx installation"
+    type: string
+    required: true
+    label: Path Type
   
 
   
