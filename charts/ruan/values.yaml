@@ -85,6 +85,20 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+persistence:
+  enabled: true
+  size: 1Gi
+  name: volume
+
+volumes:
+  - name: volume
+    persistentVolumeClaim:
+      claimName: volume
+
+volumeMounts:
+  - mountPath: /home/ruan
+    name: volume
+
 autoscaling:
   enabled: false
   minReplicas: 1
