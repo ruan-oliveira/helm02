@@ -24,6 +24,20 @@ questions:
     type: password
     label: Grafana Password
     group: "Grafana Settings"
+- variable: persistence.enabled
+  default: false
+  required: false
+  type: boolean
+  show_subquestion_if: true
+  group: "PVC Settings"
+  subquestions:
+  - variable: persistence.size
+    default: "1Gi"
+    description: "Size"
+    type: string
+    required: true
+    label: Size
+    group: "PVC Settings"
 - variable: autoscaling.enabled
   default: false
   required: false
