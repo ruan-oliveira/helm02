@@ -1,0 +1,70 @@
+rancher_max_version: 2.6.2
+labels:
+  io.cattle.role: cluster # options are cluster/project
+categories:
+- Application
+questions:
+- variable: grafana.enabled
+  default: false
+  required: false
+  type: boolean
+  show_subquestion_if: true
+  group: "Grafana Settings"
+  subquestions:
+  - variable: grafana.adminUser
+    default: "user"
+    description: "User of the application"
+    type: string
+    required: true
+    label: Grafana Usernname
+    group: "Grafana Settings"
+  - variable: grafana.adminPassword
+    default: ""
+    description: "password will be auto-generated if not specified"
+    type: password
+    label: Grafana Password
+    group: "Grafana Settings"
+- variable: autoscaling.enabled
+  default: false
+  required: false
+  type: boolean
+  show_subquestion_if: true
+  group: "HPA Settings"
+  subquestions:
+  - variable: autoscaling.minReplicas
+    default: 1
+    description: "minReplicas HPA"
+    type: int
+    required: true
+    label: minReplicas HPA
+    group: "HPA Settings"
+  - variable: autoscaling.maxReplicas
+    default: 10
+    description: "Max Replicas HPA"
+    type: int
+    required: true
+    label: Max Replicas HPA
+    group: "HPA Settings"
+- variable: ingress.enabled
+  default: false
+  description: "Expose app using Layer 7 Load Balancer - ingress"
+  type: boolean
+  label: Expose app using Layer 7 Load Balancer
+  show_subquestion_if: true
+  group: "Load Balancing"
+  subquestions:
+  - variable: ingress.hosts[0].host
+    default: "chart-example.local"
+    description: "Hostname to your Nginx installation"
+    type: hostname
+    required: true
+    label: Hostname
+  - variable: ingress.hosts[0].paths[0].path
+    default: "/"
+    description: "Path to your Nginx installation"
+    type: string
+    required: true
+    label: Path
+  
+
+  
