@@ -22,6 +22,10 @@ configMap:
       #!/bin/bash
       ls -ltra
       echo "acabei de listar"
+    exec.sh: |-
+      #!/bin/bash
+      ls -ltra
+      echo "acabei de listar exec"
 
 # livenessProbe:
   # httpGet:
