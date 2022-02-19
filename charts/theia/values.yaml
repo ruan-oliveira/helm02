@@ -23,15 +23,15 @@ configMap:
       ls -ltra
       echo "acabei de listar"
 
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
+livenessProbe: {}
+  # httpGet:
+  #   path: /
+  #   port: http
 
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
+readinessProbe: {}
+  # httpGet:
+  #   path: /
+  #   port: http
 
 persistence:
   name: "volume-theia"
