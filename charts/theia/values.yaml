@@ -23,12 +23,12 @@ configMap:
       ls -ltra
       echo "acabei de listar"
 
-livenessProbe: {}
+# livenessProbe:
   # httpGet:
   #   path: /
   #   port: http
 
-readinessProbe: {}
+# readinessProbe:
   # httpGet:
   #   path: /
   #   port: http
