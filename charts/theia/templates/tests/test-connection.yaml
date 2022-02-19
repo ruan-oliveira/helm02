@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "theia.fullname" . }}-test-connection"
+  labels:
+    {{- include "theia.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    # "helm.sh/hook": post-upgrade
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "theia.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

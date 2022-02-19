@@ -1,0 +1,7 @@
+apiVersion: v2
+name: theia
+description: A Helm chart for Kubernetes
+type: application
+version: 0.1.0
+appVersion: 1.16.0
+icon: https://user-images.githubusercontent.com/13270017/30372442-7718e492-9886-11e7-9e69-f32f8a437e6d.png
